@@ -1,8 +1,8 @@
 import pathlib
 import sys
 
-sys.path.insert(0, (pathlib.Path(__file__).parents[1].resolve() /
-                    'src/showcode').as_posix())
+src_dir = pathlib.Path(__file__).parents[2].resolve() / 'src/showcode'
+sys.path.insert(0, src_dir.as_posix())
 
 # Configuration file for the Sphinx documentation builder.
 #
