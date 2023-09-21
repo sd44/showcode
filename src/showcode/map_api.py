@@ -21,9 +21,9 @@ import json
 from urllib import parse
 from urllib.request import urlopen
 
-BAIDU_AK = 'hlx7EDq4GhiZsv5ki9nQWmSesrCPs8yZ'
+BAIDU_AK = 'replace me to your key'
 """ BAIDU_AK的值均需更改为你自己的百度API KEY """
-GAO_AK = 'c2f33161e1bdd47313b5db9984fb3e56'
+GAO_AK = 'replace me to your key'
 """ GAO_AK的值均需更改为你自己的高德API KEY """
 
 
