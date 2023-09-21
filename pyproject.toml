@@ -1,0 +1,79 @@
+[project]
+name = "showcode"
+version = "0.1.0"
+description = "Pytho办公半自动化代码"
+authors = [
+    {name = "sd44",email = "sd44sd44@yeah.net"},
+]
+dependencies = [
+    "openpyxl",
+    "xlrd",
+    "toml",
+    "pdm",
+    "requests",
+    "bs4",
+    "lxml",
+    "pandas",
+    "matplotlib",
+    "ipython",
+    "numpy",
+    "importmagic",
+    "epc",
+    "autoflake",
+    "flake8>=6.0.0",
+    "yapf",
+    "pylookup",
+    "ptvsd",
+    "matplotlib",
+    "python-docx",
+    "doc2docx",
+    "bluepy>=1.3.0",
+    "sphinx-autobuild>=2021.3.14",
+    "sphinx-rtd-theme>=1.3.0",
+]
+requires-python = ">=3.11,<4.0"
+license = {text = "MIT"}
+readme = "README.md"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-pyright",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+        # "--strict-config",
+        # "-ra",
+        "-v",
+        "--capture=no"
+]
+
+pythonpath = "src"
+testpaths = "tests"
+
+[tool.pyright]
+extraPaths = ["__pypackages__/<major.minor>/lib/"]
+
+# [tool.pdm.build]
+# includes = [
+#     "**/*.json",
+#     "mypackage/",
+# ]
+# excludes = [
+#     "mypackage/_temp/*"
+# ]
+# source-includes = ["tests/"]
+# Note that the files defined in source-includes will be excluded automatically
+# from binary distributions.
+
+
+[project.urls]
+homepage = "https://example.com"
+documentation = "https://readthedocs.org"
+repository = "https://github.com"
+changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
