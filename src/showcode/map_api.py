@@ -7,12 +7,24 @@ Examples:
         address2 = ret_gao_gps('复圣公园', '泰安')
         print(f'baidu gps: {address1}\tgaode gps: {address2}')
 
-        # 统一获取excel文件中的'生产经营单位名称'，并添加gps坐标列::
+        # 统一获取excel文件中的'生产经营单位名称'列，并添加坐标经纬度和精度::
         import pandas as pd
+
         df = pd.read_excel('/home/sd44/111.xlsx')
 
-        df['baidu gps'] = df['生产经营单位名称'].map(ret_bai_gps, na_action='ignore')
-        df['gaode gps'] = df['生产经营单位名称'].map(ret_gao_gps, na_action='ignore')
+        df['baidu address'] = df['生产经营单位名称'].map(lambda x: ret_bai_gps(x, '宁阳'),
+                                                na_action='ignore')
+        print(f"{df['baidu address']}")
+        df[['bai_lng', 'bai_lat',
+            'bai_compress']] = df['baidu address'].str.split(';', expand=True)
+        df.drop(columns='baidu address')
+
+        df['gaode address'] = df['生产经营单位名称'].map(lambda x: ret_gao_gps(x, '泰安'),
+                                                na_action='ignore')
+        df[['gao_lng', 'gao_lat',
+            'gao_compress']] = df['gaode address'].str.split(';', expand=True)
+        df.drop(columns='gaode address')
+
         df.head()
         df.to_excel('/home/sd44/2haha.xlsx', index=False)
 """
@@ -22,13 +34,13 @@ from urllib import parse
 from urllib.request import urlopen
 
 BAIDU_AK = 'replace me to your key'
-""" BAIDU_AK的值均需更改为你自己的百度API KEY """
+""" BAIDU_AK的值需更改为你自己的百度API KEY """
 GAO_AK = 'replace me to your key'
-""" GAO_AK的值均需更改为你自己的高德API KEY """
+""" GAO_AK的值需更改为你自己的高德API KEY """
 
 
 class Address:
-    """地址类
+    """存放地址信息
 
     Attributes:
         name: 地址名称
@@ -76,8 +88,8 @@ def pos_to_bai_coord(name, city):
         'address': name,
         'city': city,
         'ak': BAIDU_AK,
-        'ret_coordtype': 'gcj02ll',  # 使用的坐标标准，默认为bd09ll（百度经纬度坐
-        # 标）,这里设定为了gcj02ll（国测局标准坐标）
+        'ret_coordtype': 'bd09ll',  # 百度地图默认bd09ll（百度经纬度坐
+        # 标），也可以设定为gcj02ll（国测局标准坐标）
         'output': 'json'
     })
 
@@ -128,8 +140,9 @@ def pos_to_gaode_coord(name, city):
         return Address(name, False, comprehension=-10)
     lng, lat = (json_data['geocodes'][0]['location']).split(',')
     level = json_data['geocodes'][0]['level']
+
+    comprehension = 50
     bad_compre = ['市', '区县', '乡镇']
-    comprehension = 10
     if level in bad_compre:  # 只能精确到乡镇级的话，精度太差，误差太大，设定comprehension为 -10
         comprehension = -10
 
@@ -141,7 +154,7 @@ def pos_to_gaode_coord(name, city):
 
 
 def ret_bai_gps(name, city='宁阳'):
-    """通过百度API获取地址名称的gps值
+    """通过百度API获取地址名称的经纬度和精度
 
     Args:
         name: 地址名称
@@ -151,11 +164,11 @@ def ret_bai_gps(name, city='宁阳'):
         gps字符串，如'166.2424,35.23424'
     """
     address = pos_to_bai_coord(name, city)
-    return f'{address.lng},{address.lat}'
+    return f'{address.lng};{address.lat};{address.comprehension}'
 
 
 def ret_gao_gps(name, city='泰安'):
-    """通过高德API获取地址名称的gps值
+    """通过高德API获取地址名称的经纬度和精度
 
     Args:
         name: 地址名称
@@ -165,4 +178,4 @@ def ret_gao_gps(name, city='泰安'):
         gps字符串，如'166.2424,35.23424'
     """
     address = pos_to_gaode_coord(name, city)
-    return f'{address.lng},{address.lat}'
+    return f'{address.lng};{address.lat};{address.comprehension}'
