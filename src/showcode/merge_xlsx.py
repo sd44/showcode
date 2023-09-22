@@ -2,7 +2,7 @@
 """将某一目录下（包括子文件夹）的所有excel文件汇总合并为一个excel xlsx文件
 
 Example:
-    将 ``/home/sd44/ri``文件夹下的所有excel文件合并到 ``/home/sd44/xx.xlsx``
+    将 ``/home/sd44/ri`` 文件夹下的所有excel文件合并到 ``/home/sd44/xx.xlsx`` 
 ::
 
         process_pipline('/home/sd44/ri', '/home/sd44/xx.xlsx')
