@@ -3,15 +3,34 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Python办公半自动化's documentation!
+sd44 的 Python办公半自动化文档
 ==============================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents: 
 
-   showcode
+showcode.map_api
+=================
 
+.. automodule:: showcode.map_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+merge_doc_table
+=================
+.. automodule:: showcode.merge_doc_table
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+merge_xlsx
+=================
+.. automodule:: showcode.merge_xlsx
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 
 Indices and tables
