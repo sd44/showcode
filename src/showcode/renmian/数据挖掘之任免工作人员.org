@@ -47,9 +47,11 @@ https://gitee.com/sd44/showcode/tree/master/src/showcode/renmian
 1. 信息公开，且国务院网站的 robots.txt 协议里允许爬取公报网页。
 
 2. 文书比较规范，适合分析。通过分析，国务院任免信息主要格式是。
-   + 任命 XXX（、XXX） 为 XXXXX（、XXXXX） (2)免去 XXX（、XXX) 的 XXXXX（、
-     XXXXX) 职务 （3）任命 XXX 为 XXXXX，免去其 XXXXX（、XXXXXX） 职务。 （4）
-     兼任，和不再兼任的表述比较少，只有十几条左右，不影响大局，忽略。
+   + 任命 XXX（、XXX） 为 XXXXX（、XXXXX）
+   + 免去 XXX（、XXX) 的 XXXXX（、
+     XXXXX) 职务
+   + 任命 XXX 为 XXXXX，免去其 XXXXX（、XXXXXX） 职务。
+   + 兼任、不再兼（担）任的表述比较少，只有十几条左右，不影响大局，忽略。
 
 3. 时代的滥觞——流量。选个“看起来”高大上的题目。-__-
 
