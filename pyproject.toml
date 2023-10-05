@@ -1,7 +1,7 @@
 [project]
 name = "showcode"
 version = "0.1.0"
-description = "Pytho办公半自动化代码"
+description = ""
 authors = [
     {name = "sd44",email = "sd44sd44@yeah.net"},
 ]
@@ -10,6 +10,7 @@ dependencies = [
     "xlrd",
     "toml",
     "pdm",
+    "jupyter",
     "requests",
     "bs4",
     "lxml",
@@ -31,8 +32,13 @@ dependencies = [
     "sphinx-autobuild>=2021.3.14",
     "sphinx-rtd-theme>=1.3.0",
     "sphinx>=7.2.6",
+    "types-beautifulsoup4>=4.12.0.6",
+    "pytest-playwright",
+    "types-requests>=2.31.0.3",
+    "pandas-stubs",
+    "openpyxl-stubs",
 ]
-requires-python = ">=3.11,<4.0"
+requires-python = ">=3.11"
 license = {text = "MIT"}
 readme = "README.md"
 
