@@ -32,6 +32,12 @@ merge_xlsx
    :undoc-members:
    :show-inheritance:
 
+unicjk_del_blank
+=================
+.. automodule:: showcode.unicjk_del_blank
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Indices and tables
 ==================

@@ -1,33 +1,21 @@
 [project]
 name = "showcode"
 version = "0.1.0"
-description = ""
+description = "Default template for PDM package"
 authors = [
     {name = "sd44",email = "sd44sd44@yeah.net"},
 ]
 dependencies = [
-    "openpyxl",
-    "xlrd",
     "toml",
     "pdm",
-    "jupyter",
     "requests",
     "bs4",
     "lxml",
     "pandas",
-    "matplotlib",
-    "ipython",
-    "numpy",
-    "importmagic",
-    "epc",
-    "autoflake",
-    "flake8>=6.0.0",
-    "yapf",
-    "pylookup",
-    "ptvsd",
-    "matplotlib",
-    "python-docx",
+    "docx",
     "doc2docx",
+    "matplotlib",
+    "yapf",
     "bluepy>=1.3.0",
     "sphinx-autobuild>=2021.3.14",
     "sphinx-rtd-theme>=1.3.0",
@@ -35,12 +23,11 @@ dependencies = [
     "types-beautifulsoup4>=4.12.0.6",
     "pytest-playwright",
     "types-requests>=2.31.0.3",
-    "pandas-stubs",
-    "openpyxl-stubs",
 ]
-requires-python = ">=3.11"
+requires-python = "> 3.10.*"
 license = {text = "MIT"}
 readme = "README.md"
+
 
 [project.optional-dependencies]
 test = [
@@ -59,8 +46,8 @@ addopts = [
 pythonpath = "src"
 testpaths = "tests"
 
-[tool.pyright]
-extraPaths = ["__pypackages__/<major.minor>/lib/"]
+# [tool.pyright]
+# extraPaths = ["__pypackages__/<major.minor>/lib/"]
 
 # [tool.pdm.build]
 # includes = [
@@ -75,12 +62,11 @@ extraPaths = ["__pypackages__/<major.minor>/lib/"]
 # from binary distributions.
 
 
+[tool.pdm]
+distribution = false
 [project.urls]
 homepage = "https://example.com"
 documentation = "https://readthedocs.org"
 repository = "https://github.com"
 changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
