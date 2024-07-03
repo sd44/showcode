@@ -1,9 +1,6 @@
 import pathlib
 import sys
 
-#src_dir = pathlib.Path(__file__).parents[2].resolve() / 'src/showcode'
-#sys.path.insert(0, src_dir.as_posix())
-
 src_dir = pathlib.Path(__file__).parents[2].resolve() / 'src'
 sys.path.insert(0, src_dir.as_posix())
 print(f'sys.path is {sys.path}')
@@ -16,8 +13,8 @@ print(f'sys.path is {sys.path}')
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Python办公半自动化'
-copyright = '2023, sd44'
+project = 'sd44的Python小脚本'
+copyright = '2024, sd44 sd44sd44@yeah.net'
 author = 'sd44'
 release = '0.0.1'
 

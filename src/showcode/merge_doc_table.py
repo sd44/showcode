@@ -2,7 +2,7 @@
 """将某一目录下（包括子文件夹）的所有Word文件中的表格数据汇总合并为一个xlsx文件
 
 Example:
-::
+  合并Word中的表格为Excel ::
 
     doc_docx_dir = Path.cwd() / 'testdoc' # 处理 testdoc/ 目录下的所有word文件
 

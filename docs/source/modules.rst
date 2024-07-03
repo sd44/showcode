@@ -1,7 +1,7 @@
-showcode
-========
+代码和文档
+====================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
    showcode

@@ -1,12 +1,10 @@
-""" 删除两个CJK字符中间的非CJK特殊字符，默认空格
+""" 删除CJK字符间非CJK特殊字符，默认空格
 
 Examples:
-  删除中文字符间的空格::
+  删除CJK间的空格或者 小写字母和空格::
 
-    a = build_del_space('aha哈a  哈  的    你')
-    b = build_del_space('aha哈a   哈   的你')
-    c = build_del_space('aha哈a     哈   的 你')
-    d = build_del_space('aha 哈a     哈哇哟   的 你')
+    assert build_del_noncjk_pat('aha哈a  哈  的    你') == "aha哈a  哈的你"
+    assert build_del_noncjk_pat('aha哈 a哈  的 a  你', '[a-z ]') == "aha哈哈的你"
 
 """
 
@@ -22,14 +20,8 @@ UNI_CJK = [[0x4E00, 0x9FFF], [0x3400, 0x4DBF], [0x20000, 0x2A6DF],
            [0xF900, 0xFAFF], [0x2F800, 0x2FA1F]]
 
 
-def ischn(chars):
-    """ 判断chars是否含有CJK
-
-    Args:
-        chars: CJK字符或字符串
-    Retruns:
-        如果含有中文，返回一个re.Match object；否则返回None
-    """
+def build_cjk_patstr():
+    """ 返回CJK区间范围的regexp pattern """
     L = []
     for i in UNI_CJK:
         if isinstance(i, list):
@@ -39,56 +31,34 @@ def ischn(chars):
             L.append(f'{f}-{t}')
         else:
             L.append(chr(i))
-    chn_range = re.compile(f"[{''.join(L)}]")
-    return re.search(chn_range, chars)
+    return f"[{''.join(L)}]"
 
 
-def build_del_space(line, deleted_chars=' '):
+def build_del_noncjk_pat(line, del_noncjk_pat=' '):
     """ 删除字符串
 
     Args:
         line: 输入的字符串。
-        deleted_chars: 要删除的汉字之间的非汉字字符，默认为空格。
+        del_noncjk_pat: 要删除的CJK字符之间非CJK字符的正则表达式，默认为空格。
     Retruns:
-        删除汉字间非汉字特殊字符如空格后的结果。
+        删除CJK字间非CJK字符(如空格后)后的字符串。
+
     """
-    result = []
-    line = line.strip()
-    if len(line) <= 2:
-        return line
 
-    repeat_del = []
-    len_line = len(line)
-
-    i = 1
-    while i < len_line:
-        prev = line[i - 1]
-        chn = True if ischn(prev) else False
-        result.append(prev)
-
-        while i < len_line and line[i] == deleted_chars:
-            repeat_del.append(deleted_chars)
-            i += 1
-
-        if i == len_line:
-            return ''.join(result)
-
-        if len(repeat_del) > 0:
-            if chn == False or not ischn(line[i]):
-                result += repeat_del
-            repeat_del.clear()
-
-        i += 1
-
-    result.append(line[-1])
-
-    return ''.join(result)
+    cjkpat = build_cjk_patstr()
+    if re.search(cjkpat, del_noncjk_pat):
+        raise ValueError(f"{del_noncjk_pat=}, it's can not be CJK char")
+    pat = re.compile(r'({0}){1}+(?={0})'.format(cjkpat, del_noncjk_pat))
+    # (?=...)是前视断言，只断言，不消耗 ...字符。
+    result = pat.sub(r'\1', line)
+    return result
 
 
 def test_del_space():
-    assert build_del_space('aha哈a  哈  的    你') == "aha哈a  哈的你"
-    assert build_del_space('aha哈a   哈   的你') == "aha哈a   哈的你"
-    assert build_del_space('aha哈a     哈   的 你') == "aha哈a     哈的你"
-    assert build_del_space('aha 哈a   哈哇哟   的 你') == "aha 哈a   哈哇哟的你"
-    assert build_del_space(
+    assert build_del_noncjk_pat('aha哈a  哈  的    你') == "aha哈a  哈的你"
+    assert build_del_noncjk_pat('aha哈 a哈  的 a  你', '[a-z ]') == "aha哈哈的你"
+    assert build_del_noncjk_pat('aha哈a   哈   的你') == "aha哈a   哈的你"
+    assert build_del_noncjk_pat('aha哈a     哈   的 你') == "aha哈a     哈的你"
+    assert build_del_noncjk_pat('aha 哈a   哈哇哟   的 你') == "aha 哈a   哈哇哟的你"
+    assert build_del_noncjk_pat(
         'aha 哈a   哈  哇\n哟 的\n  哈哈   你') == "aha 哈a   哈哇\n哟的\n  哈哈你"
