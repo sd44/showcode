@@ -7,13 +7,11 @@ authors = [
 ]
 dependencies = [
     "toml",
-    "pdm",
     "requests",
     "bs4",
     "lxml",
     "pandas",
     "docx",
-    "doc2docx",
     "matplotlib",
     "yapf",
     "bluepy>=1.3.0",
@@ -23,8 +21,10 @@ dependencies = [
     "types-beautifulsoup4>=4.12.0.6",
     "pytest-playwright",
     "types-requests>=2.31.0.3",
+    "sphinx-autodoc2>=0.5.0",
+    "pre-commit>=4.0.1",
 ]
-requires-python = ">=3.10"
+requires-python = "==3.12.*"
 license = {text = "MIT"}
 readme = "README.md"
 
@@ -34,6 +34,7 @@ test = [
     "pytest",
     "pytest-pyright",
 ]
+windows = ["doc2docx"]
 
 [tool.pytest.ini_options]
 addopts = [
@@ -69,4 +70,3 @@ homepage = "https://example.com"
 documentation = "https://readthedocs.org"
 repository = "https://github.com"
 changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
-

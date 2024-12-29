@@ -10,11 +10,4 @@ sd44 的 Python小脚本
    :maxdepth: 2
    :caption: 目录
 
-   modules
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   apidocs/index

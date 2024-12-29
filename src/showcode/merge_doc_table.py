@@ -33,7 +33,7 @@ def gen_find(filepat, topdir):
         generator(Path): 匹配到的文件Path生成器
     """
     p = Path(topdir)
-    return p.glob('**/' + filepat)
+    return p.glob("**/" + filepat)
 
 
 def doc_to_docx(doc_files):
@@ -48,14 +48,22 @@ def doc_to_docx(doc_files):
         暂不支持Mac系统。
     """
     for filename in doc_files:
-        if platform.system() == 'Windows':
+        if platform.system() == "Windows":
             from doc2docx import convert
+
             convert(filename)
-        elif platform.system() == 'Linux':
-            subprocess.call([
-                'soffice', '--headless', '--convert-to', 'docx', filename,
-                '--outdir', f'{filename.parents[0]}'
-            ])
+        elif platform.system() == "Linux":
+            subprocess.call(
+                [
+                    "soffice",
+                    "--headless",
+                    "--convert-to",
+                    "docx",
+                    filename,
+                    "--outdir",
+                    f"{filename.parents[0]}",
+                ]
+            )
         else:
             print(
                 f"error: doc_to_docx only support Win/Linux now.\nCan't support {platform.system()} now"
@@ -140,7 +148,7 @@ def process_docx(files, is_oneline=True):
     """
     datas = []
     datas.append([])
-    print('{files}')
+    print("{files}")
     for i in files:
         if is_oneline:
             datas.append(read_table_to_oneline(i))
