@@ -13,7 +13,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   showcode.map_api
-   showcode.merge_doc_table
    showcode.merge_xlsx
    showcode.unicjk_del_blank
+   showcode.map_api
+   showcode.merge_doc_table
